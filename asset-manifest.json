@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/dadostcc/static/css/main.f71bcae8.css",
+    "main.js": "/dadostcc/static/js/main.666ae1f6.js",
+    "index.html": "/dadostcc/index.html",
+    "main.f71bcae8.css.map": "/dadostcc/static/css/main.f71bcae8.css.map",
+    "main.666ae1f6.js.map": "/dadostcc/static/js/main.666ae1f6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f71bcae8.css",
+    "static/js/main.666ae1f6.js"
+  ]
+}
