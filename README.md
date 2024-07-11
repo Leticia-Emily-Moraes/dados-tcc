@@ -1,3 +1,4 @@
+
 # Aplicação para Organização de Dados do Projeto FaunABC
 
 Uma aplicação React simples para ajudar na organização dos dados de animais no TCC de Desenvolvimento de Sistemas.
@@ -14,7 +15,7 @@ Este projeto visa facilitar a organização e a gestão dos dados de animais par
 
 ## Contribuindo
 
-instruções para colocar o projeto em sua máquina e poder adicionar dados de animais
+instruções para colocar o projeto em sua máquina e conseguir adicionar dados de animais
 1. **Faça um fork do projeto:**
 - Clique no botão "Fork" no canto superior direito da página do repositório.![Botão de Fork](https://github.com/Leticia-Emily-Moraes/dados-tcc/assets/95486245/69bd3a3c-ded9-4ee2-a7c3-ab89d2bb0042)
 - Isso criará uma cópia do repositório no seu próprio GitHub.
@@ -62,10 +63,10 @@ git push origin AdicaoDeAnimais
 6. **Abra um Pull Request:**
 
 - Vá para a página do seu repositório forked no GitHub.
-IMAGEM
+![PullRequest1](https://github.com/Leticia-Emily-Moraes/dados-tcc/assets/95486245/eb3c58f9-c1a9-4ae9-9f2f-d26249bd935c)
 - Clique no botão "Compare & pull request".
-IMAGEM
+![Button Pull Request](https://github.com/Leticia-Emily-Moraes/dados-tcc/assets/95486245/3a3db437-9b85-48b1-8a0c-78d5496f3374)
 - Preencha os detalhes do pull request e envie.
-IMAGEM
+![pullResquestEdição](https://github.com/Leticia-Emily-Moraes/dados-tcc/assets/95486245/03b0d394-0adc-4fd2-bf1e-f3df38ac6e80)
 
 Todas as vezes que for fazer adição dos animais tem que seguir os passos do 3 ao 6
