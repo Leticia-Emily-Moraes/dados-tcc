@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+# Aplicação para Organização de Dados do Projeto FaunABC
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Uma aplicação React simples para ajudar na organização dos dados de animais no TCC de Desenvolvimento de Sistemas.
 
-## Available Scripts
+## Sumário
 
-In the project directory, you can run:
+- [Sobre](#sobre)
+- [Contribuindo](#contribuindo)
 
-### `npm start`
+## Sobre
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Este projeto visa facilitar a organização e a gestão dos dados de animais para o TCC de Desenvolvimento de Sistemas, conhecido como Projeto FaunABC.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Contribuindo
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+instruções para colocar o projeto em sua máquina e poder adicionar dados de animais
+1. **Faça um fork do projeto:**
+- Clique no botão "Fork" no canto superior direito da página do repositório.![Botão de Fork](https://github.com/Leticia-Emily-Moraes/dados-tcc/assets/95486245/69bd3a3c-ded9-4ee2-a7c3-ab89d2bb0042)
+- Isso criará uma cópia do repositório no seu próprio GitHub.
+2. **Clone o repositório forked para a sua máquina local:**
+```sh
+git clone https://github.com/seu-usuario/dados-tcc.git
+```
+![Clone do repositório](https://github.com/Leticia-Emily-Moraes/dados-tcc/assets/95486245/0b438dfd-8ec1-402f-b478-83fb67e54897)
+3. **Entre na branch propria para adição de novos Animais:**
 
-### `npm run build`
+```sh
+cd dados-tcc
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+git checkout AdicaoDeAnimais
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. **Atualize antes de usar:**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```sh
+git pull
 
-### `npm run eject`
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+5. **Entre na aplicação de novos animais:**
+```sh
+npm run server
+npm start
+```
+- isso irá fazer que a aplicação abra em seu navegador no link [http://localhost:3000](http://localhost:3000)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+6. **Faça suas alterações e commit:**
+Ápos terminar de fazer as alterações siga o seguinte fluxo
+```sh
+git add data-animais.json
+```
+```sh
+git commit -m 'Novos dados adicionados, último animal: <nome-do-ultimo animal-adicionado>'
+```
+5. **Envie as suas alterações para a branch:**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```sh
+git push origin AdicaoDeAnimais
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+6. **Abra um Pull Request:**
 
-## Learn More
+- Vá para a página do seu repositório forked no GitHub.
+IMAGEM
+- Clique no botão "Compare & pull request".
+IMAGEM
+- Preencha os detalhes do pull request e envie.
+IMAGEM
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Todas as vezes que for fazer adição dos animais tem que seguir os passos do 3 ao 6
