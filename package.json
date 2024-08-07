@@ -19,7 +19,7 @@
   "scripts": {
     "start": "react-scripts start",
     "server": "node server.js",
-    "build": "cd client && npm install && npm run build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
