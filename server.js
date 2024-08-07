@@ -12,7 +12,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.post('/api/add-animal', (req, res) => {
   const { nomePopular, nomeCientifico, especie } = req.body;
 
-  fs.readFile(path.join(__dirname, 'src', 'data', 'data-animais.json'), 'utf8', (err, data) => {
+  fs.readFile(path.join(__dirname, 'public', 'data', 'data-animais.json'), 'utf8', (err, data) => {
     if (err) {
       console.error('Erro ao ler data-animais.json:', err);
       return res.status(500).json({ error: 'Falha ao ler dados do servidor' });
@@ -28,7 +28,7 @@ app.post('/api/add-animal', (req, res) => {
 
     animais.push(newAnimal);
 
-    fs.writeFile(path.join(__dirname, 'src', 'data', 'data-animais.json'), JSON.stringify(animais, null, 2), (err) => {
+    fs.writeFile(path.join(__dirname, 'public', 'data', 'data-animais.json'), JSON.stringify(animais, null, 2), (err) => {
       if (err) {
         console.error('Erro ao escrever data-animais.json:', err);
         return res.status(500).json({ error: 'Falha ao salvar dados no servidor' });
