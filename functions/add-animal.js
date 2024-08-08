@@ -2,24 +2,21 @@ const fs = require("fs");
 const path = require("path");
 
 exports.handler = async (event) => {
-	console.log("Evento recebido:", event);
-
 	if (event.httpMethod === "POST") {
 		try {
-			console.log("Corpo da solicitação:", event.body);
 			const { nomePopular, nomeCientifico, especie } = JSON.parse(
 				event.body
 			);
 			const dataPath = path.join(
-				__dirname,
-				"../src/data/data-animais.json"
+				process.cwd(),
+				"src",
+				"data",
+				"data-animais.json"
 			);
-
 			console.log("Caminho do arquivo:", dataPath);
 
-			// Verificar se o arquivo existe
 			if (!fs.existsSync(dataPath)) {
-				console.error("Arquivo data-animais.json não encontrado");
+				console.error("Arquivo não encontrado:", dataPath);
 				return {
 					statusCode: 500,
 					body: JSON.stringify({
@@ -39,7 +36,6 @@ exports.handler = async (event) => {
 			};
 
 			animais.push(newAnimal);
-
 			fs.writeFileSync(dataPath, JSON.stringify(animais, null, 2));
 
 			return {
