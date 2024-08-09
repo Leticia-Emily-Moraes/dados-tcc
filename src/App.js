@@ -17,7 +17,6 @@ const App = () => {
 
 		try {
 			const response = await fetch("/api/add-animal", {
-				// Alterado para o caminho relativo
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -31,7 +30,7 @@ const App = () => {
 				setNomeCientifico("");
 				setEspecie("");
 			} else {
-				alert("Falha ao adicionar animal.");
+				alert("Falha ao adicionar animal.", response);
 			}
 		} catch (error) {
 			console.error("Erro ao enviar dados:", error);
