@@ -19,6 +19,7 @@
   "scripts": {
     "start": "react-scripts start",
     "server": "node server.js",
+    "prebuild": "mkdir -p build/data && cp src/data/data-animais.json build/data/data-animais.json",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
