@@ -5,7 +5,14 @@ const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 3001;
 
-app.use(cors());
+// Configurar CORS para permitir a origem específica do frontend
+const corsOptions = {
+	origin: "https://dados-tcc-front.onrender.com", // Substitua pela URL do seu frontend
+	methods: ["GET", "POST", "PUT", "DELETE"],
+	allowedHeaders: ["Content-Type"],
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
