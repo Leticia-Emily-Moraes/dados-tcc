@@ -36,7 +36,7 @@ const App = () => {
 				alert("Falha ao adicionar animal.", response);
 			}
 		} catch (error) {
-			console.error("Erro ao enviar dados:oi ", error);
+			console.error("Erro ao enviar dados:", error);
 			alert(
 				"Erro ao enviar dados. Verifique o console para mais informações."
 			);
