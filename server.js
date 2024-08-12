@@ -5,12 +5,16 @@ const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 3001;
 
-app.use(
-	cors({
-		origin: "https://dados-tcc.onrender.com",
-		methods: "GET,POST",
-	})
-);
+// Configurar CORS para permitir a origem específica do frontend
+const corsOptions = {
+	origin: "https://dados-tcc-front.onrender.com", // Substitua pela URL do seu frontend
+	methods: ["GET", "POST", "PUT", "DELETE"],
+	allowedHeaders: ["Content-Type"],
+};
+
+app.use(cors(corsOptions));
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
 
 app.post("/api/add-animal", (req, res) => {
 	const { nomePopular, nomeCientifico, especie } = req.body;
@@ -45,9 +49,11 @@ app.post("/api/add-animal", (req, res) => {
 							"Erro ao escrever data-animais.json:",
 							err
 						);
-						return res.status(500).json({
-							error: "Falha ao salvar dados no servidor",
-						});
+						return res
+							.status(500)
+							.json({
+								error: "Falha ao salvar dados no servidor",
+							});
 					}
 
 					res.status(200).json({
