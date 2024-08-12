@@ -16,16 +16,13 @@ const App = () => {
 		};
 
 		try {
-			const response = await fetch(
-				"https://dados-tcc.onrender.com/api/add-animal",
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(newAnimal),
-				}
-			);
+			const response = await fetch("https://dados-tcc.onrender.com/api/add-animal", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(newAnimal),
+			});
 
 			if (response.ok) {
 				alert("Animal adicionado com sucesso!");
@@ -33,13 +30,12 @@ const App = () => {
 				setNomeCientifico("");
 				setEspecie("");
 			} else {
-				alert("Falha ao adicionar animal.", response);
+				const errorData = await response.json();
+				alert(`Falha ao adicionar animal: ${errorData.error}`);
 			}
 		} catch (error) {
 			console.error("Erro ao enviar dados:", error);
-			alert(
-				"Erro ao enviar dados. Verifique o console para mais informações."
-			);
+			alert("Erro ao enviar dados. Verifique o console para mais informações.");
 		}
 	};
 
