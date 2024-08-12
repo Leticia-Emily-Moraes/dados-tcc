@@ -42,12 +42,15 @@ app.post("/api/add-animal", (req, res) => {
 							"Erro ao escrever data-animais.json:",
 							err
 						);
-						return res
-							.status(500)
-							.json({
-								error: "Falha ao salvar dados no servidor",
-							});
+						return res.status(500).json({
+							error: "Falha ao salvar dados no servidor",
+						});
 					}
+
+					console.log(
+						"Dados atualizados no arquivo data-animais.json:",
+						JSON.stringify(animais, null, 2)
+					);
 
 					res.status(200).json({
 						message: "Animal adicionado com sucesso",
