@@ -81,6 +81,22 @@ app.get("/api/status", (req, res) => {
     );
 });
 
+app.post("/api/clear-data", (req, res) => {
+    fs.writeFile(
+        path.join(__dirname, "src", "data", "data-animais.json"),
+        JSON.stringify([], null, 2),
+        (err) => {
+            if (err) {
+                console.error("Erro ao limpar data-animais.json:", err);
+                return res.status(500).json({ error: "Falha ao limpar dados do servidor" });
+            }
+
+            res.status(200).json({ message: "Dados limpos com sucesso" });
+        }
+    );
+});
+
+
 app.listen(port, () => {
 	console.log(`Servidor está rodando em http://localhost:${port}`);
 });
