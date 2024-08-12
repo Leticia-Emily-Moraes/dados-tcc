@@ -34,8 +34,10 @@ const App = () => {
 				alert(`Falha ao adicionar animal: ${errorData.error}`);
 			}
 		} catch (error) {
-			console.error("Erro ao enviar dados:", error);
-			alert("Erro ao enviar dados. Verifique o console para mais informações.");
+			console.error("Erro ao enviar dados: ", error);
+			alert(
+				"Erro ao enviar dados. Verifique o console para mais informações."
+			);
 		}
 	};
 
