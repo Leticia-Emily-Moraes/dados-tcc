@@ -5,9 +5,12 @@ const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 3001;
 
-app.use(cors());
-app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(
+	cors({
+		origin: "https://dados-tcc.onrender.com",
+		methods: "GET,POST",
+	})
+);
 
 app.post("/api/add-animal", (req, res) => {
 	const { nomePopular, nomeCientifico, especie } = req.body;
@@ -42,11 +45,9 @@ app.post("/api/add-animal", (req, res) => {
 							"Erro ao escrever data-animais.json:",
 							err
 						);
-						return res
-							.status(500)
-							.json({
-								error: "Falha ao salvar dados no servidor",
-							});
+						return res.status(500).json({
+							error: "Falha ao salvar dados no servidor",
+						});
 					}
 
 					res.status(200).json({
