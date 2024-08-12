@@ -16,7 +16,7 @@ const App = () => {
 		};
 
 		try {
-			const response = await fetch("/api/add-animal", {
+			const response = await fetch("https://dados-tcc.onrender.com", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
