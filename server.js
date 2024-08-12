@@ -68,8 +68,17 @@ app.post("/api/add-animal", (req, res) => {
 	);
 });
 
-app.get("*", (req, res) => {
-	res.sendFile(path.join(__dirname, "public", "index.html"));
+app.get("/api/status", (req, res) => {
+    fs.readFile(
+        path.join(__dirname, "src", "data", "data-animais.json"),
+        "utf8",
+        (err, data) => {
+            if (err) {
+                return res.status(500).json({ error: "Erro ao ler dados do servidor" });
+            }
+            res.status(200).json(JSON.parse(data));
+        }
+    );
 });
 
 app.listen(port, () => {
