@@ -16,13 +16,16 @@ const App = () => {
 		};
 
 		try {
-			const response = await fetch("https://dados-tcc.onrender.com", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(newAnimal),
-			});
+			const response = await fetch(
+				"https://dados-tcc.onrender.com/api/add-animal",
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(newAnimal),
+				}
+			);
 
 			if (response.ok) {
 				alert("Animal adicionado com sucesso!");
