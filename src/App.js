@@ -32,7 +32,6 @@ const App = () => {
 	};
 
 	const handleImagePreviewClick = () => {
-		// Simula o clique no input file quando a pré-visualização da imagem é clicada
 		fileInputRef.current.click();
 	};
 
@@ -52,7 +51,7 @@ const App = () => {
 
 		const formData = new FormData();
 		if (imageFile) {
-			formData.append("image", imageFile);
+			formData.append("imagem", imageFile);
 		}
 		formData.append("animalData", JSON.stringify(newAnimal));
 
