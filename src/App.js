@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./App.css";
 
 const App = () => {
@@ -12,6 +12,29 @@ const App = () => {
 		peconhento: false,
 		agressivo: false,
 	});
+	const [imagePreview, setImagePreview] = useState("");
+	const [imageFile, setImageFile] = useState(null);
+	const fileInputRef = useRef(null); // Criação da referência para o input file
+
+	const handleImageChange = (event) => {
+		const file = event.target.files[0];
+		if (file) {
+			const reader = new FileReader();
+			reader.onloadend = () => {
+				setImagePreview(reader.result);
+				setImageFile(file);
+			};
+			reader.readAsDataURL(file);
+		} else {
+			setImagePreview("");
+			setImageFile(null);
+		}
+	};
+
+	const handleImagePreviewClick = () => {
+		// Simula o clique no input file quando a pré-visualização da imagem é clicada
+		fileInputRef.current.click();
+	};
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -27,15 +50,18 @@ const App = () => {
 			agressivo: checkBoxValue.agressivo,
 		};
 
+		const formData = new FormData();
+		if (imageFile) {
+			formData.append("image", imageFile);
+		}
+		formData.append("animalData", JSON.stringify(newAnimal));
+
 		try {
 			const response = await fetch(
 				"https://dados-tcc.onrender.com/api/add-animal",
 				{
 					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(newAnimal),
+					body: formData,
 				}
 			);
 
@@ -51,6 +77,8 @@ const App = () => {
 					peconhento: false,
 					agressivo: false,
 				});
+				setImagePreview("");
+				setImageFile(null);
 			} else {
 				const errorData = await response.json();
 				alert(`Falha ao adicionar animal: ${errorData.error}`);
@@ -67,6 +95,23 @@ const App = () => {
 		<div className="App">
 			<h1>Adicionar Animal</h1>
 			<form onSubmit={handleSubmit}>
+				<label>Imagem animal:</label>
+				<div
+					className="ImagemPreview"
+					onClick={handleImagePreviewClick}
+				>
+					{imagePreview ? (
+						<img src={imagePreview} alt="Pré-visualização" className="ImgViewer" />
+					) : (
+						<span>Coloque a Imagem</span>
+					)}
+				</div>
+				<input
+					type="file"
+					accept="image/*"
+					onChange={handleImageChange}
+					ref={fileInputRef} 
+				/>
 				<label>Nome Popular:</label>
 				<input
 					type="text"

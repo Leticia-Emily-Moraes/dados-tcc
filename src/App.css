@@ -1,3 +1,9 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 .App {
   max-width: 400px;
   margin: 20px auto;
@@ -12,10 +18,11 @@ form {
 }
 
 label {
-  margin-bottom: 10px;
+  margin: 10px 0px;
 }
 
-input, textarea {
+input,
+textarea {
   padding: 8px;
   margin-top: 4px;
   margin-bottom: 8px;
@@ -75,6 +82,9 @@ input[type="checkbox"]:checked::after {
   background-color: #fff;
   left: 23px;
 }
+input[type="checkbox"]:checked:hover {
+  background-color: #0056b3;
+}
 
 button {
   margin-top: 30px;
@@ -88,4 +98,43 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.ImagemPreview {
+  width: 100%;
+  background-color: #ffffff;
+  height: 100px;
+  padding: 5px;
+  border: 3px dashed #0056b3;
+  color: #0056b3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.ImagemPreview:hover {
+  background-color: #0056b3cc;
+  color: #ffffff;
+  border: 3px dashed #ffffff;
+  transition: all 200ms ease-in-out;
+}
+
+.ImagemPreview:active {
+  background-color: #007bff;
+  color: #ffffff;
+  border: 3px dashed #ffffff;
+}
+
+.ImagemPreview:focus {
+  outline: 3px solid #0056b3;
+}
+
+.ImagemPreview .ImgViewer {
+  max-width: 100%;
 }
