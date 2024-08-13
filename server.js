@@ -17,7 +17,16 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.post("/api/add-animal", (req, res) => {
-	const { nomePopular, nomeCientifico, especie } = req.body;
+	const {
+		nomePopular,
+		nomeCientifico,
+		familia,
+		habitat,
+		habito,
+		caractGeral,
+		peconhento,
+		agressivo,
+	} = req.body;
 
 	fs.readFile(
 		path.join(__dirname, "src", "data", "data-animais.json"),
@@ -35,7 +44,12 @@ app.post("/api/add-animal", (req, res) => {
 				id: animais.length > 0 ? animais[animais.length - 1].id + 1 : 1,
 				nomePopular,
 				nomeCientifico,
-				especie,
+				familia,
+				habitat,
+				habito,
+				caractGeral,
+				peconhento,
+				agressivo,
 			};
 
 			animais.push(newAnimal);
