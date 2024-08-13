@@ -2,12 +2,24 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const cors = require("cors");
+const multer = require("multer");
 const app = express();
 const port = process.env.PORT || 3001;
 
-// Configurar CORS para permitir a origem específica do frontend
+const storage = multer.diskStorage({
+	destination: function (req, file, cb){
+		cb(null, path.join(__dirname, "src", "imgs"));
+	},
+	filename: function(req, file, cb){
+		const nomeArquivo = req.body.nomePopular.replace(/\s+/g, '_').replace(/[^\w\\-]+/g, '');
+		cb(null, nomeArquivo + path.extname(file.originalname))
+	}
+})
+
+const upload = multer({ storage: storage });
+
 const corsOptions = {
-	origin: "https://dados-tcc-front.onrender.com", // Substitua pela URL do seu frontend
+	origin: "https://dados-tcc-front.onrender.com",
 	methods: ["GET", "POST", "PUT", "DELETE"],
 	allowedHeaders: ["Content-Type"],
 };
@@ -16,7 +28,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.post("/api/add-animal", (req, res) => {
+app.post("/api/add-animal", upload.single('imagem'), (req, res) => {
 	const {
 		nomePopular,
 		nomeCientifico,
@@ -27,6 +39,7 @@ app.post("/api/add-animal", (req, res) => {
 		peconhento,
 		agressivo,
 	} = req.body;
+	const imagem = req.file ? req.file.filename : null;
 
 	fs.readFile(
 		path.join(__dirname, "src", "data", "data-animais.json"),
@@ -42,6 +55,7 @@ app.post("/api/add-animal", (req, res) => {
 			const animais = JSON.parse(data);
 			const newAnimal = {
 				id: animais.length > 0 ? animais[animais.length - 1].id + 1 : 1,
+				imagem,
 				nomePopular,
 				nomeCientifico,
 				familia,
