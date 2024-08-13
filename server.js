@@ -7,15 +7,23 @@ const app = express();
 const port = process.env.PORT || 3001;
 
 const storage = multer.diskStorage({
-	destination: function (req, file, cb) {
-		cb(null, path.join(__dirname, "src", "imgs"));
-	},
-	filename: function (req, file, cb) {
-		const nomeArquivo = req.body.nomePopular
-			.replace(/\s+/g, "_")
-			.replace(/[^\w\\-]+/g, "");
-		cb(null, nomeArquivo + path.extname(file.originalname));
-	},
+    destination: function (req, file, cb) {
+        cb(null, path.join(__dirname, "src", "imgs"));
+    },
+    filename: function (req, file, cb) {
+        let nomePopular = "default";
+        if (req.body.animalData) {
+            try {
+                const animalData = JSON.parse(req.body.animalData);
+                nomePopular = animalData.nomePopular || "default";
+            } catch (e) {
+                console.error("Erro ao analisar animalData:", e);
+            }
+        }
+        // eslint-disable-next-line no-useless-escape
+        const nomeArquivo = nomePopular.replace(/\s+/g, '_').replace(/[^\w\-]+/g, '');
+        cb(null, nomeArquivo + path.extname(file.originalname));
+    }
 });
 
 const upload = multer({ storage: storage });

@@ -37,7 +37,7 @@ const App = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-
+	
 		const newAnimal = {
 			nomePopular,
 			nomeCientifico,
@@ -48,13 +48,13 @@ const App = () => {
 			peconhento: checkBoxValue.peconhento,
 			agressivo: checkBoxValue.agressivo,
 		};
-
+	
 		const formData = new FormData();
 		if (imageFile) {
-			formData.append("imagem", imageFile);
+			formData.append("imagem", imageFile); // Certifique-se de que o nome do campo corresponde ao backend
 		}
-		formData.append("animalData", JSON.stringify(newAnimal));
-
+		formData.append("animalData", JSON.stringify(newAnimal)); // Adiciona animalData ao FormData
+	
 		try {
 			const response = await fetch(
 				"https://dados-tcc.onrender.com/api/add-animal",
@@ -63,7 +63,7 @@ const App = () => {
 					body: formData,
 				}
 			);
-
+	
 			if (response.ok) {
 				alert("Animal adicionado com sucesso!");
 				setNomePopular("");
@@ -88,7 +88,7 @@ const App = () => {
 				"Erro ao enviar dados. Verifique o console para mais informações."
 			);
 		}
-	};
+	};	
 
 	return (
 		<div className="App">
