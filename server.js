@@ -7,14 +7,16 @@ const app = express();
 const port = process.env.PORT || 3001;
 
 const storage = multer.diskStorage({
-	destination: function (req, file, cb){
+	destination: function (req, file, cb) {
 		cb(null, path.join(__dirname, "src", "imgs"));
 	},
-	filename: function(req, file, cb){
-		const nomeArquivo = req.body.nomePopular.replace(/\s+/g, '_').replace(/[^\w\\-]+/g, '');
-		cb(null, nomeArquivo + path.extname(file.originalname))
-	}
-})
+	filename: function (req, file, cb) {
+		const nomeArquivo = req.body.nomePopular
+			.replace(/\s+/g, "_")
+			.replace(/[^\w\\-]+/g, "");
+		cb(null, nomeArquivo + path.extname(file.originalname));
+	},
+});
 
 const upload = multer({ storage: storage });
 
@@ -28,7 +30,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.post("/api/add-animal", upload.single('imagem'), (req, res) => {
+app.post("/api/add-animal", upload.single("imagem"), (req, res) => {
 	const {
 		nomePopular,
 		nomeCientifico,
@@ -97,33 +99,36 @@ app.post("/api/add-animal", upload.single('imagem'), (req, res) => {
 });
 
 app.get("/api/status", (req, res) => {
-    fs.readFile(
-        path.join(__dirname, "src", "data", "data-animais.json"),
-        "utf8",
-        (err, data) => {
-            if (err) {
-                return res.status(500).json({ error: "Erro ao ler dados do servidor" });
-            }
-            res.status(200).json(JSON.parse(data));
-        }
-    );
+	fs.readFile(
+		path.join(__dirname, "src", "data", "data-animais.json"),
+		"utf8",
+		(err, data) => {
+			if (err) {
+				return res
+					.status(500)
+					.json({ error: "Erro ao ler dados do servidor" });
+			}
+			res.status(200).json(JSON.parse(data));
+		}
+	);
 });
 
 app.post("/api/clear-data", (req, res) => {
-    fs.writeFile(
-        path.join(__dirname, "src", "data", "data-animais.json"),
-        JSON.stringify([], null, 2),
-        (err) => {
-            if (err) {
-                console.error("Erro ao limpar data-animais.json:", err);
-                return res.status(500).json({ error: "Falha ao limpar dados do servidor" });
-            }
+	fs.writeFile(
+		path.join(__dirname, "src", "data", "data-animais.json"),
+		JSON.stringify([], null, 2),
+		(err) => {
+			if (err) {
+				console.error("Erro ao limpar data-animais.json:", err);
+				return res
+					.status(500)
+					.json({ error: "Falha ao limpar dados do servidor" });
+			}
 
-            res.status(200).json({ message: "Dados limpos com sucesso" });
-        }
-    );
+			res.status(200).json({ message: "Dados limpos com sucesso" });
+		}
+	);
 });
-
 
 app.listen(port, () => {
 	console.log(`Servidor está rodando em http://localhost:${port}`);
