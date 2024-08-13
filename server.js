@@ -7,23 +7,28 @@ const app = express();
 const port = process.env.PORT || 3001;
 
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, path.join(__dirname, "src", "imgs"));
-    },
-    filename: function (req, file, cb) {
-        let nomePopular = "default";
-        if (req.body.animalData) {
-            try {
-                const animalData = JSON.parse(req.body.animalData);
-                nomePopular = animalData.nomePopular || "default";
-            } catch (e) {
-                console.error("Erro ao analisar animalData:", e);
-            }
-        }
-        // eslint-disable-next-line no-useless-escape
-        const nomeArquivo = nomePopular.replace(/\s+/g, '_').replace(/[^\w\-]+/g, '');
-        cb(null, nomeArquivo + path.extname(file.originalname));
-    }
+	destination: function (req, file, cb) {
+		cb(null, path.join(__dirname, "src", "imgs"));
+	},
+	filename: function (req, file, cb) {
+		console.log("Corpo da requisição:", req.body);
+		let nomePopular = "default";
+		if (req.body.animalData) {
+			try {
+				const animalData = JSON.parse(req.body.animalData);
+				nomePopular = animalData.nomePopular || "default";
+			} catch (e) {
+				console.error("Erro ao analisar animalData:", e);
+			}
+		}
+		console.log("Nome popular do arquivo:", nomePopular);
+
+		const nomeArquivo = nomePopular
+			.replace(/\s+/g, "_")
+			.replace(/[^\w\-]/g, "");
+
+		cb(null, nomeArquivo + path.extname(file.originalname));
+	},
 });
 
 const upload = multer({ storage: storage });
@@ -39,6 +44,9 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.post("/api/add-animal", upload.single("imagem"), (req, res) => {
+	console.log("Corpo da requisição:", req.body);
+	console.log("Arquivo enviado:", req.file);
+
 	const {
 		nomePopular,
 		nomeCientifico,
@@ -50,6 +58,10 @@ app.post("/api/add-animal", upload.single("imagem"), (req, res) => {
 		agressivo,
 	} = req.body;
 	const imagem = req.file ? req.file.filename : null;
+
+	if (!nomePopular) {
+		return res.status(400).json({ error: "Nome popular é obrigatório" });
+	}
 
 	fs.readFile(
 		path.join(__dirname, "src", "data", "data-animais.json"),
