@@ -51,9 +51,9 @@ const App = () => {
 	
 		const formData = new FormData();
 		if (imageFile) {
-			formData.append("imagem", imageFile); // Certifique-se de que o nome do campo corresponde ao backend
+			formData.append("imagem", imageFile);
 		}
-		formData.append("animalData", JSON.stringify(newAnimal)); // Adiciona animalData ao FormData
+		formData.append("animalData", JSON.stringify(newAnimal));
 	
 		try {
 			const response = await fetch(
