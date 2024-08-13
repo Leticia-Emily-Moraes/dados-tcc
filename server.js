@@ -17,7 +17,16 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.post("/api/add-animal", (req, res) => {
-	const { nomePopular, nomeCientifico, especie } = req.body;
+	const {
+		nomePopular,
+		nomeCientifico,
+		familia,
+		habitat,
+		habito,
+		caractGeral,
+		peconhento,
+		agressivo,
+	} = req.body;
 
 	fs.readFile(
 		path.join(__dirname, "src", "data", "data-animais.json"),
@@ -35,7 +44,12 @@ app.post("/api/add-animal", (req, res) => {
 				id: animais.length > 0 ? animais[animais.length - 1].id + 1 : 1,
 				nomePopular,
 				nomeCientifico,
-				especie,
+				familia,
+				habitat,
+				habito,
+				caractGeral,
+				peconhento,
+				agressivo,
 			};
 
 			animais.push(newAnimal);
@@ -68,9 +82,34 @@ app.post("/api/add-animal", (req, res) => {
 	);
 });
 
-app.get("*", (req, res) => {
-	res.sendFile(path.join(__dirname, "public", "index.html"));
+app.get("/api/status", (req, res) => {
+    fs.readFile(
+        path.join(__dirname, "src", "data", "data-animais.json"),
+        "utf8",
+        (err, data) => {
+            if (err) {
+                return res.status(500).json({ error: "Erro ao ler dados do servidor" });
+            }
+            res.status(200).json(JSON.parse(data));
+        }
+    );
 });
+
+app.post("/api/clear-data", (req, res) => {
+    fs.writeFile(
+        path.join(__dirname, "src", "data", "data-animais.json"),
+        JSON.stringify([], null, 2),
+        (err) => {
+            if (err) {
+                console.error("Erro ao limpar data-animais.json:", err);
+                return res.status(500).json({ error: "Falha ao limpar dados do servidor" });
+            }
+
+            res.status(200).json({ message: "Dados limpos com sucesso" });
+        }
+    );
+});
+
 
 app.listen(port, () => {
 	console.log(`Servidor está rodando em http://localhost:${port}`);
