@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
         if (req.body.animalData) {
             try {
                 const animalData = JSON.parse(req.body.animalData);
-                nomePopular = animalData.nomePopular || "default";
+                nomePopular = animalData.nomePopular;
             } catch (e) {
                 console.error("Erro ao analisar animalData:", e);
             }
