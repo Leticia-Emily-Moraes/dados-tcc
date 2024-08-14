@@ -8,7 +8,7 @@ const port = process.env.PORT || 3001;
 
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
-		cb(null, path.join(__dirname, "src", "imgs"));
+		cb(null, path.join(__dirname, "imgs"));
 	},
 	filename: function (req, file, cb) {
 		cb(null, 1 + path.extname(file.originalname));
