@@ -17,7 +17,18 @@ const storage = multer.diskStorage({
         cb(null, uploadDir);
     },
     filename: function (req, file, cb) {
-        cb(null, 1 + path.extname(file.originalname));
+		let nomePopular = "default";
+        if (req.body.animalData) {
+            try {
+                const animalData = JSON.parse(req.body.animalData);
+                nomePopular = animalData.nomePopular || "default";
+            } catch (e) {
+                console.error("Erro ao analisar animalData:", e);
+            }
+        }
+        // eslint-disable-next-line no-useless-escape
+        const nomeArquivo = nomePopular.replace(/\s+/g, '_').replace(/[^\w\-]+/g, '');
+        cb(null, nomeArquivo + path.extname(file.originalname));
     },
 });
 
