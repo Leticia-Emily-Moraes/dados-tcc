@@ -27,7 +27,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.post("/api/add-animal", upload.single("imagem"), (req, res) => {
+app.post("/api/add-animal", (req, res) => {
 	console.log("Corpo da requisição:", req.body);
 	console.log("Arquivo enviado:", req.file);
 
@@ -46,7 +46,7 @@ app.post("/api/add-animal", upload.single("imagem"), (req, res) => {
 	if (!nomePopular) {
 		return res.status(400).json({ error: "Nome popular é obrigatório" });
 	}
-
+	upload.single("imagem");
 	fs.readFile(
 		path.join(__dirname, "src", "data", "data-animais.json"),
 		"utf8",
