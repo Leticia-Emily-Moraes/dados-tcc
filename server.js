@@ -40,7 +40,7 @@ app.post("/api/add-animal", (req, res) => {
 		caractGeral,
 		peconhento,
 		agressivo,
-	} = req.body;
+	} = req.body.animalData;
 	const imagem = req.file ? req.file.filename : null;
 
 	if (!nomePopular) {
