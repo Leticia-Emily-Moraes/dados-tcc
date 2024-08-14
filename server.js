@@ -11,23 +11,7 @@ const storage = multer.diskStorage({
 		cb(null, path.join(__dirname, "src", "imgs"));
 	},
 	filename: function (req, file, cb) {
-		console.log("Corpo da requisição:", req.body);
-		let nomePopular = "default";
-		if (req.body.animalData) {
-			try {
-				const animalData = JSON.parse(req.body.animalData);
-				nomePopular = animalData.nomePopular || "default";
-			} catch (e) {
-				console.error("Erro ao analisar animalData:", e);
-			}
-		}
-		console.log("Nome popular do arquivo:", nomePopular);
-
-		const nomeArquivo = nomePopular
-			.replace(/\s+/g, "_")
-			.replace(/[^\w\-]/g, "");
-
-		cb(null, nomeArquivo + path.extname(file.originalname));
+		cb(null, 1 + path.extname(file.originalname));
 	},
 });
 
@@ -44,9 +28,6 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.post("/api/add-animal", upload.single("imagem"), (req, res) => {
-	console.log("Corpo da requisição:", req.body);
-	console.log("Arquivo enviado:", req.file);
-
 	const {
 		nomePopular,
 		nomeCientifico,
@@ -103,11 +84,6 @@ app.post("/api/add-animal", upload.single("imagem"), (req, res) => {
 							error: "Falha ao salvar dados no servidor",
 						});
 					}
-
-					console.log(
-						"Dados atualizados no arquivo data-animais.json:",
-						JSON.stringify(animais, null, 2)
-					);
 
 					res.status(200).json({
 						message: "Animal adicionado com sucesso",
