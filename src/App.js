@@ -37,24 +37,20 @@ const App = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-	
-		const newAnimal = {
-			nomePopular,
-			nomeCientifico,
-			familia,
-			habitat,
-			habito,
-			caractGeral,
-			peconhento: checkBoxValue.peconhento,
-			agressivo: checkBoxValue.agressivo,
-		};
-	
+
 		const formData = new FormData();
 		if (imageFile) {
 			formData.append("imagem", imageFile);
 		}
-		formData.append("animalData", JSON.stringify(newAnimal));
-	
+		formData.append("nomePopular", nomePopular);
+		formData.append("nomeCientifico", nomeCientifico);
+		formData.append("familia", familia);
+		formData.append("habitat", habitat);
+		formData.append("habito", habito);
+		formData.append("caractGeral", caractGeral);
+		formData.append("peconhento", checkBoxValue.peconhento);
+		formData.append("agressivo", checkBoxValue.agressivo);
+
 		try {
 			const response = await fetch(
 				"https://dados-tcc.onrender.com/api/add-animal",
@@ -63,7 +59,7 @@ const App = () => {
 					body: formData,
 				}
 			);
-	
+
 			if (response.ok) {
 				alert("Animal adicionado com sucesso!");
 				setNomePopular("");
@@ -88,7 +84,7 @@ const App = () => {
 				"Erro ao enviar dados. Verifique o console para mais informações."
 			);
 		}
-	};	
+	};
 
 	return (
 		<div className="App">
@@ -100,7 +96,11 @@ const App = () => {
 					onClick={handleImagePreviewClick}
 				>
 					{imagePreview ? (
-						<img src={imagePreview} alt="Pré-visualização" className="ImgViewer" />
+						<img
+							src={imagePreview}
+							alt="Pré-visualização"
+							className="ImgViewer"
+						/>
 					) : (
 						<span>Coloque a Imagem</span>
 					)}
@@ -109,7 +109,7 @@ const App = () => {
 					type="file"
 					accept="image/*"
 					onChange={handleImageChange}
-					ref={fileInputRef} 
+					ref={fileInputRef}
 				/>
 				<label>Nome Popular:</label>
 				<input
@@ -168,16 +168,16 @@ const App = () => {
 					value={habito}
 					onChange={(e) => setHabito(e.target.value)}
 					required
-					rows="5" 
-					cols="50" 
+					rows="5"
+					cols="50"
 				/>
 				<label>Características gerais:</label>
 				<textarea
 					value={caractGeral}
 					onChange={(e) => setCaractGeral(e.target.value)}
 					required
-					rows="5" 
-					cols="50" 
+					rows="5"
+					cols="50"
 				/>
 
 				<button type="submit">Adicionar Animal</button>

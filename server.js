@@ -27,10 +27,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.post("/api/add-animal", (req, res) => {
-	console.log("Corpo da requisição:", req.body);
-	console.log("Arquivo enviado:", req.file);
-
+app.post("/api/add-animal", upload.single("imagem"), (req, res) => {
 	const {
 		nomePopular,
 		nomeCientifico,
@@ -46,7 +43,7 @@ app.post("/api/add-animal", (req, res) => {
 	if (!nomePopular) {
 		return res.status(400).json({ error: "Nome popular é obrigatório" });
 	}
-	upload.single("imagem");
+
 	fs.readFile(
 		path.join(__dirname, "src", "data", "data-animais.json"),
 		"utf8",
@@ -87,11 +84,6 @@ app.post("/api/add-animal", (req, res) => {
 							error: "Falha ao salvar dados no servidor",
 						});
 					}
-
-					console.log(
-						"Dados atualizados no arquivo data-animais.json:",
-						JSON.stringify(animais, null, 2)
-					);
 
 					res.status(200).json({
 						message: "Animal adicionado com sucesso",
