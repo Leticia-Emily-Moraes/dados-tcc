@@ -26,9 +26,7 @@ const storage = multer.diskStorage({
                 console.error("Erro ao analisar animalData:", e);
             }
         }
-        // eslint-disable-next-line no-useless-escape
-        const nomeArquivo = nomePopular.replace(/\s+/g, '_').replace(/[^\w\-]+/g, '');
-        cb(null, nomeArquivo + path.extname(file.originalname));
+        cb(null, nomePopular + path.extname(file.originalname));
     },
 });
 
