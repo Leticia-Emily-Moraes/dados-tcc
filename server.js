@@ -6,13 +6,19 @@ const multer = require("multer");
 const app = express();
 const port = process.env.PORT || 3001;
 
+const uploadDir = path.resolve(__dirname, "imgs");
+
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
+
 const storage = multer.diskStorage({
-	destination: function (req, file, cb) {
-		cb(null, path.join(__dirname, "imgs"));
-	},
-	filename: function (req, file, cb) {
-		cb(null, 1 + path.extname(file.originalname));
-	},
+    destination: function (req, file, cb) {
+        cb(null, uploadDir);
+    },
+    filename: function (req, file, cb) {
+        cb(null, 1 + path.extname(file.originalname));
+    },
 });
 
 const upload = multer({ storage: storage });
