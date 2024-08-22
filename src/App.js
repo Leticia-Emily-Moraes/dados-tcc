@@ -14,7 +14,7 @@ const App = () => {
 	});
 	const [imagePreview, setImagePreview] = useState("");
 	const [imageFile, setImageFile] = useState(null);
-	const fileInputRef = useRef(null); // Criação da referência para o input file
+	const fileInputRef = useRef(null); 
 
 	const handleImageChange = (event) => {
 		const file = event.target.files[0];
@@ -37,7 +37,7 @@ const App = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-
+	
 		const formData = new FormData();
 		if (imageFile) {
 			formData.append("imagem", imageFile);
@@ -50,16 +50,13 @@ const App = () => {
 		formData.append("caractGeral", caractGeral);
 		formData.append("peconhento", checkBoxValue.peconhento);
 		formData.append("agressivo", checkBoxValue.agressivo);
-
+	
 		try {
-			const response = await fetch(
-				"https://dados-tcc.onrender.com/api/add-animal",
-				{
-					method: "POST",
-					body: formData,
-				}
-			);
-
+			const response = await fetch("http://localhost:3001/api/add-animal", {
+				method: "POST",
+				body: formData,
+			});
+	
 			if (response.ok) {
 				alert("Animal adicionado com sucesso!");
 				setNomePopular("");
@@ -85,7 +82,6 @@ const App = () => {
 			);
 		}
 	};
-
 	return (
 		<div className="App">
 			<h1>Adicionar Animal</h1>
