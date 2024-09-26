@@ -1,0 +1,33 @@
+services:
+    frontend:
+        build:
+            context: .
+            dockerfile: DockerFile.frontend
+        ports:
+            - "3010:3010"
+        command: npm start
+        environment:
+            - NODE_ENV=development
+            - HOST=0.0.0.0
+        depends_on:
+            - backend
+        networks:
+            - dadostcc
+
+    backend:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - "3011:3011"
+        command: npm run server
+        environment:
+            - NODE_ENV=development
+        volumes:
+            - ./src/data:/app/src/data
+            - ./src/imgs:/app/src/imgs
+        networks:
+            - dadostcc
+
+networks:
+    dadostcc:
