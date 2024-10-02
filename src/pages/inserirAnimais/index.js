@@ -53,7 +53,7 @@ const InserirAnimal = () => {
 
 		try {
 			const response = await fetch(
-				"https://faunabc.portfolioeducacionalrgs.com/api/add-animal",
+				"/api/add-animal",
 				{
 					method: "POST",
 					mode: "cors",
